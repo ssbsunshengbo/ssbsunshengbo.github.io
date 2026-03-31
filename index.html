@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>// SYSTEM.INIT — PERSONAL.OS</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════ INTRO SCREEN ═══════════════════════════════════════ -->
+  <div id="intro-screen">
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scan-overlay"></div>
+
+    <div class="intro-core">
+      <div class="system-label">PERSONAL.OS v2.6.1</div>
+      <div class="boot-text" id="boot-text"></div>
+      <div class="intro-title">
+        <span class="glitch" data-text="SHENGBO">SHENGBO</span>
+      </div>
+      <div class="intro-subtitle">// KNOWLEDGE ARCHIVE &amp; CREATIVE LAB</div>
+
+      <button id="enter-btn" onclick="launchSite()">
+        <div class="btn-ring"></div>
+        <div class="btn-ring btn-ring-2"></div>
+        <div class="btn-laser-border"></div>
+        <span class="btn-text">INITIALIZE</span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <div class="corner-decor top-left"></div>
+      <div class="corner-decor top-right"></div>
+      <div class="corner-decor bottom-left"></div>
+      <div class="corner-decor bottom-right"></div>
+
+      <div class="hex-grid">
+        <div class="hex"></div><div class="hex"></div><div class="hex"></div>
+        <div class="hex"></div><div class="hex"></div><div class="hex"></div>
+        <div class="hex"></div><div class="hex"></div><div class="hex"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ LASER TRANSITION ═══════════════════════════════════ -->
+  <div id="laser-transition">
+    <div class="laser-h"></div>
+    <div class="laser-h laser-h-2"></div>
+    <div class="laser-v"></div>
+    <div class="laser-v laser-v-2"></div>
+    <div class="laser-flash"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ MAIN SITE ═════════════════════════════════════════ -->
+  <div id="main-site" class="hidden">
+
+    <!-- Ambient particles -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Floating laser lines -->
+    <div class="ambient-laser al-1"></div>
+    <div class="ambient-laser al-2"></div>
+    <div class="ambient-laser al-3"></div>
+
+    <!-- ── NAVIGATION ── -->
+    <nav id="navbar">
+      <div class="nav-logo">
+        <span class="nav-bracket">[</span>
+        <span class="nav-name">SHENGBO</span>
+        <span class="nav-bracket">]</span>
+      </div>
+      <div class="nav-links">
+        <a href="#about" class="nav-link" data-label="01">PROFILE</a>
+        <a href="#articles" class="nav-link" data-label="02">ARTICLES</a>
+        <a href="#gallery" class="nav-link" data-label="03">GALLERY</a>
+        <a href="#repos" class="nav-link" data-label="04">REPOS</a>
+        <a href="#contact" class="nav-link" data-label="05">CONTACT</a>
+      </div>
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span class="status-text">ONLINE</span>
+      </div>
+    </nav>
+
+    <!-- ── HERO SECTION ── -->
+    <section id="about" class="hero-section">
+      <div class="hero-bg-grid"></div>
+      <div class="hero-content">
+        <div class="hero-tag">// WHO AM I</div>
+        <h1 class="hero-name">
+          <span class="glitch-main" data-text="SHENGBO SUN">SHENGBO SUN</span>
+        </h1>
+        <div class="hero-title-line">
+          <span class="cursor-blink">▮</span>
+          <span id="typed-role"></span>
+        </div>
+        <p class="hero-bio">
+          探索技术与创意的交汇地带。这里记录值得留存的一切——
+          深度文章、灵感图片、开源项目，以及对世界的思考。
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num" id="stat-repos">—</div>
+            <div class="stat-label">REPOS</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat-articles">12</div>
+            <div class="stat-label">ARTICLES</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-num" id="stat-stars">—</div>
+            <div class="stat-label">STARS</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <a href="https://github.com/ssbsunshengbo" target="_blank" class="btn-primary">
+            <span>VIEW GITHUB</span>
+            <div class="btn-scan"></div>
+          </a>
+          <a href="#articles" class="btn-secondary">READ ARTICLES</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="avatar-container">
+          <div class="avatar-ring r1"></div>
+          <div class="avatar-ring r2"></div>
+          <div class="avatar-ring r3"></div>
+          <div class="avatar-core">
+            <img id="github-avatar" src="" alt="avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%230d1117%22 width=%22100%22 height=%22100%22/><text y=%22.9em%22 font-size=%2290%22>👤</text></svg>'" />
+          </div>
+          <div class="avatar-scan-line"></div>
+        </div>
+        <div class="hero-data-panel">
+          <div class="data-row"><span class="data-key">USER</span><span class="data-val" id="dp-username">ssbsunshengbo</span></div>
+          <div class="data-row"><span class="data-key">LOCATION</span><span class="data-val" id="dp-location">EARTH</span></div>
+          <div class="data-row"><span class="data-key">FOLLOWERS</span><span class="data-val" id="dp-followers">—</span></div>
+          <div class="data-row"><span class="data-key">STATUS</span><span class="data-val green">● ACTIVE</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ARTICLES SECTION ── -->
+    <section id="articles" class="section">
+      <div class="section-header">
+        <div class="section-tag">// KNOWLEDGE.BASE</div>
+        <h2 class="section-title">ARTICLES <span class="title-accent">&amp; NOTES</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="articles-grid" id="articles-grid">
+        <!-- 文章卡片 - 可自定义添加 -->
+        <article class="article-card" data-tag="TECH">
+          <div class="card-laser-border"></div>
+          <div class="card-tag">DEEP DIVE</div>
+          <div class="card-date">2026.03.15</div>
+          <h3 class="card-title">深入理解 Go 并发模型：Goroutine 与 Channel 的设计哲学</h3>
+          <p class="card-desc">探索 Go 语言并发原语背后的设计思想，从 CSP 理论到实际工程实践的完整路径。</p>
+          <div class="card-meta">
+            <span class="tag-chip">Go</span>
+            <span class="tag-chip">Concurrency</span>
+            <span class="tag-chip">Architecture</span>
+          </div>
+          <a href="#" class="card-link">READ MORE <span class="arrow">→</span></a>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="article-card featured" data-tag="INSIGHT">
+          <div class="card-laser-border"></div>
+          <div class="card-tag featured-tag">FEATURED</div>
+          <div class="card-date">2026.02.28</div>
+          <h3 class="card-title">构建高可用微服务：从理论到 Shopee 内部实践</h3>
+          <p class="card-desc">系统性梳理微服务架构的核心挑战，以及在大规模生产环境中经过验证的解决方案。</p>
+          <div class="card-meta">
+            <span class="tag-chip">Microservices</span>
+            <span class="tag-chip">GAS</span>
+            <span class="tag-chip">DevOps</span>
+          </div>
+          <a href="#" class="card-link">READ MORE <span class="arrow">→</span></a>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="article-card" data-tag="TOOLS">
+          <div class="card-laser-border"></div>
+          <div class="card-tag">TOOLING</div>
+          <div class="card-date">2026.01.20</div>
+          <h3 class="card-title">打造完美的开发环境：我的 2026 工具链配置</h3>
+          <p class="card-desc">从编辑器到终端，详细记录个人开发效率工具的选择逻辑与配置细节。</p>
+          <div class="card-meta">
+            <span class="tag-chip">Workflow</span>
+            <span class="tag-chip">Neovim</span>
+            <span class="tag-chip">Productivity</span>
+          </div>
+          <a href="#" class="card-link">READ MORE <span class="arrow">→</span></a>
+          <div class="card-glow"></div>
+        </article>
+
+        <article class="article-card" data-tag="THINK">
+          <div class="card-laser-border"></div>
+          <div class="card-tag">THINKING</div>
+          <div class="card-date">2025.12.10</div>
+          <h3 class="card-title">技术人的阅读方法论：如何高效吸收海量信息</h3>
+          <p class="card-desc">信息过载时代，关于如何建立知识体系、提炼有效信号的个人实践总结。</p>
+          <div class="card-meta">
+            <span class="tag-chip">Learning</span>
+            <span class="tag-chip">Knowledge</span>
+          </div>
+          <a href="#" class="card-link">READ MORE <span class="arrow">→</span></a>
+          <div class="card-glow"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── GALLERY SECTION ── -->
+    <section id="gallery" class="section">
+      <div class="section-header">
+        <div class="section-tag">// VISUAL.ARCHIVE</div>
+        <h2 class="section-title">GALLERY <span class="title-accent">&amp; MOMENTS</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-item gi-large">
+          <div class="gi-overlay"></div>
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80" alt="tech" />
+          <div class="gi-info"><span class="gi-title">CIRCUIT DREAMS</span><span class="gi-sub">Hardware / 2026</span></div>
+          <div class="gi-laser-scan"></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gi-overlay"></div>
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="code" />
+          <div class="gi-info"><span class="gi-title">CODE CANVAS</span><span class="gi-sub">Dev / 2026</span></div>
+          <div class="gi-laser-scan"></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gi-overlay"></div>
+          <img src="https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?w=400&q=80" alt="city" />
+          <div class="gi-info"><span class="gi-title">NEON CITY</span><span class="gi-sub">Urban / 2025</span></div>
+          <div class="gi-laser-scan"></div>
+        </div>
+        <div class="gallery-item">
+          <div class="gi-overlay"></div>
+          <img src="https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=400&q=80" alt="space" />
+          <div class="gi-info"><span class="gi-title">DEEP SPACE</span><span class="gi-sub">Cosmos / 2025</span></div>
+          <div class="gi-laser-scan"></div>
+        </div>
+        <div class="gallery-item gi-wide">
+          <div class="gi-overlay"></div>
+          <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800&q=80" alt="data" />
+          <div class="gi-info"><span class="gi-title">DATA FLOW</span><span class="gi-sub">Abstract / 2025</span></div>
+          <div class="gi-laser-scan"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── GITHUB REPOS SECTION ── -->
+    <section id="repos" class="section">
+      <div class="section-header">
+        <div class="section-tag">// OPEN.SOURCE</div>
+        <h2 class="section-title">GITHUB <span class="title-accent">REPOS</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="repos-grid" id="repos-grid">
+        <div class="repo-loading">
+          <div class="loading-spinner"></div>
+          <span>FETCHING REPOSITORIES...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT SECTION ── -->
+    <section id="contact" class="section contact-section">
+      <div class="contact-bg"></div>
+      <div class="section-header">
+        <div class="section-tag">// ESTABLISH.CONNECTION</div>
+        <h2 class="section-title">CONTACT <span class="title-accent">ME</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-grid">
+        <a href="https://github.com/ssbsunshengbo" target="_blank" class="contact-card">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </div>
+          <div class="cc-label">GITHUB</div>
+          <div class="cc-val">@ssbsunshengbo</div>
+          <div class="cc-laser"></div>
+        </a>
+        <a href="mailto:m15149152693@163.com" class="contact-card">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div class="cc-label">EMAIL</div>
+          <div class="cc-val">m15149152693@163.com</div>
+          <div class="cc-laser"></div>
+        </a>
+        <a href="https://twitter.com/ssbsunshengbo" target="_blank" class="contact-card">
+          <div class="cc-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </div>
+          <div class="cc-label">X / TWITTER</div>
+          <div class="cc-val">@ssbsunshengbo</div>
+          <div class="cc-laser"></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- ── FOOTER ── -->
+    <footer class="site-footer">
+      <div class="footer-laser-line"></div>
+      <div class="footer-content">
+        <span class="footer-text">// SHENGBO.SUN — PERSONAL.OS v2.6.1</span>
+        <span class="footer-copy">BUILT WITH PASSION &amp; LASER BEAMS</span>
+      </div>
+    </footer>
+
+  </div><!-- end #main-site -->
+
+  <script src="script.js"></script>
+</body>
+</html>
