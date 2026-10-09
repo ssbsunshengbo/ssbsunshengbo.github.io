@@ -1,0 +1,44 @@
+# Shengbo Sun · Engineering Notes
+
+一个采用 GitHub Docs 式清爽浅色排版的 GitHub Pages 博客。文章放在 Markdown 文件里；Jekyll 负责生成文章列表和阅读页，不需要额外的运行时服务。
+
+## 写作
+
+在项目根目录运行：
+
+```sh
+node scripts/new-post.mjs "深入理解 Go 并发模型" --slug go-concurrency
+```
+
+命令会在 `_drafts/` 创建带 front matter 和复盘提纲的 Markdown 草稿。标题可以直接写中文；`--slug` 可选，用于生成更清晰的文章网址。完成后发布草稿：
+
+```sh
+node scripts/new-post.mjs --publish _drafts/2026-10-09-go-concurrency.md
+```
+
+发布命令会把草稿移动到 `_posts/`。提交并推送后，GitHub Pages 会生成文章页面并更新列表。示例文章保存在 `_drafts/`，只在本地用 `--drafts` 预览时显示；发布前请替换成自己的真实经验。
+
+## 本地预览
+
+安装 Ruby 3 和 Bundler 后，在项目根目录运行：
+
+```sh
+bundle install
+bundle exec jekyll serve --drafts
+```
+
+然后打开 `http://127.0.0.1:4000/blog/`。`--drafts` 会把 `_drafts/` 中的文章也显示出来，便于发布前检查。GitHub Pages 本身使用 Jekyll 生成 Markdown 文章；本地预览使用 `github-pages` Gem 对齐其常见依赖。
+
+## 并入现有个人主页
+
+博客入口设计为 `/blog/`，导航中的“个人主页”返回 `https://ssbsunshengbo.github.io/`。现有仓库的 `index.html`、`script.js` 和 `style.css` 可以继续保留。将以下内容合并到现有仓库根目录：
+
+- `_config.yml`、`_layouts/`、`_posts/`、`_drafts/`
+- `assets/blog-favicon.svg`、`assets/css/blog.css`、`assets/js/blog.js`
+- `blog/`、`scripts/`、`Gemfile`
+
+保留现有个人主页的根目录 `index.html`。本项目的根目录 `index.html` 只用于独立预览并跳转到 `/blog/`，合并时不要覆盖个人主页首页。如果仓库已有 `_config.yml` 或 `Gemfile`，请把本项目中的设置合并进去，不要整份替换原文件。合并后，把个人主页的 ARTICLES 导航和 READ ARTICLES 入口指向 `/blog/`；单篇文章卡片可以链接到对应的 `/blog/年/月/日/英文短名/` 地址。
+
+## 内容格式
+
+每篇文章用 YAML front matter 提供标题、日期、分类、标签和摘要，正文使用 Markdown。文章列表支持按标题、摘要、分类和标签进行即时搜索。文章网址格式为 `/blog/年/月/日/英文短名/`。

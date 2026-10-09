@@ -1,1 +1,6 @@
 .history/
+_site/
+.jekyll-cache/
+.sass-cache/
+vendor/
+.bundle/

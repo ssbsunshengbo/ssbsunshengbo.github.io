@@ -1,0 +1,27 @@
+title: Shengbo Sun · Engineering Notes
+description: 工程经验、技术难题与复盘记录。
+url: https://ssbsunshengbo.github.io
+baseurl: ""
+profile_url: https://ssbsunshengbo.github.io/
+permalink: /blog/:year/:month/:day/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - scripts
+  - _site
+  - .jekyll-cache
+  - .sass-cache
+  - vendor
+  - .bundle
+  - .gitignore
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
