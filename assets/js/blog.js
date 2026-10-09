@@ -6,11 +6,25 @@
   const status = document.querySelector("#search-status");
   const title = document.querySelector("#article-list-title");
   const params = new URLSearchParams(window.location.search);
-  const category = params.get("category") || "";
+  const queryCategory = params.get("category") || "";
+  const categoryLinks = [...document.querySelectorAll("[data-category-nav]")];
+  const allLink = document.querySelector("[data-nav-all]");
 
-  if (!input || entries.length === 0) return;
+  if (!input) return;
 
   input.value = params.get("q") || "";
+  for (const link of categoryLinks) {
+    const current = link.dataset.categoryNav === queryCategory;
+    link.classList.toggle("is-current", current);
+    if (current) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  }
+  const showAll = !queryCategory;
+  allLink?.classList.toggle("is-current", showAll);
+  if (showAll) allLink?.setAttribute("aria-current", "page");
+  else allLink?.removeAttribute("aria-current");
+
+  if (entries.length === 0) return;
 
   const update = () => {
     const query = input.value.trim().toLocaleLowerCase("zh-CN");
@@ -19,15 +33,15 @@
     for (const entry of entries) {
       const matchesText = entry.dataset.search.toLocaleLowerCase("zh-CN").includes(query);
       const categories = entry.dataset.category.split("|").filter(Boolean);
-      const matchesCategory = !category || categories.includes(category);
+      const matchesCategory = !queryCategory || categories.includes(queryCategory);
       entry.hidden = !(matchesText && matchesCategory);
       if (!entry.hidden) visible += 1;
     }
 
     count.textContent = String(visible);
     empty.hidden = visible !== 0;
-    if (title) title.textContent = category ? `分类：${category}` : query ? "搜索结果" : "全部文章";
-    status.textContent = query || category ? `找到 ${visible} 篇文章` : "";
+    if (title) title.textContent = queryCategory ? `分类：${queryCategory}` : query ? "搜索结果" : "全部文章";
+    status.textContent = query || queryCategory ? `找到 ${visible} 篇文章` : "";
   };
 
   input.addEventListener("input", update);

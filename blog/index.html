@@ -6,7 +6,7 @@ permalink: /blog/
 ---
 <header class="page-heading">
   <h1>工程笔记</h1>
-  <p>工程实践、技术问题与复盘记录。</p>
+  <p>工程经验、技术难题与复盘记录。</p>
 </header>
 
 <section class="article-section" aria-labelledby="article-list-title">
@@ -29,11 +29,9 @@ permalink: /blog/
       </article>
       {% endfor %}
     {% else %}
-      <div class="empty-notice" id="empty-state">
-        <p><strong>还没有发布文章。</strong>新文章发布后会显示在这里。</p>
-      </div>
+      <p class="empty-state" id="empty-state">目前还没有已发布的文章。</p>
     {% endif %}
   </div>
-  <p class="empty-notice search-empty" id="search-empty" hidden>没有找到匹配的文章。</p>
+  <p class="empty-state search-empty" id="search-empty" hidden>没有找到匹配的文章。</p>
   <p class="search-status" id="search-status" aria-live="polite"></p>
 </section>
