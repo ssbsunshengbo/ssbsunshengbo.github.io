@@ -2,7 +2,13 @@
 
 一个按 GitHub Docs 阅读布局搭建的 GitHub Pages 博客。文章放在 Markdown 文件里；Jekyll 负责生成文章列表和阅读页，不需要额外的运行时服务。
 
-界面沿用 Primer 的浅色设计令牌、字阶和间距。对应 CSS 保存在 `assets/css/vendor/primer/`，来自 `@primer/primitives` 11.10.0，采用 MIT 许可证。西文界面使用 GitHub 官方 Mona Sans 可变字体，采用 SIL Open Font License 1.1；许可证文本分别保存在 CSS 与字体目录中。中文由系统字体回退显示。
+界面沿用 Primer 的浅色设计令牌、字阶和间距。对应 CSS 保存在 `assets/css/vendor/primer/`，来自 `@primer/primitives` 11.10.0，采用 MIT 许可证。西文界面使用 GitHub 官方 Mona Sans 可变字体，采用 SIL Open Font License 1.1；许可证文本分别保存在 CSS 与字体目录中。中文由系统字体回退显示。写作页用 `markdown-it` 14.3.0 渲染预览，采用 MIT 许可证，文件保存在 `assets/js/vendor/`。
+
+## 网页写作
+
+打开 `/blog/write/` 可以在浏览器里创建草稿、填写文章信息、编辑 Markdown 并实时预览。草稿会自动保存在当前浏览器；它不会自动同步到其他设备或写进 GitHub 仓库。
+
+准备发布时，可以下载 `.md` 文件，或先复制 Markdown，再点“在 GitHub 网页提交”。GitHub 会打开新文件页面并填好 `_posts/日期-短网址.md` 的文件名；粘贴正文并提交后，Pages 会自动发布。这个静态博客不保存 GitHub 登录信息，因此提交需要在 GitHub 页面完成。若要让博客站内直接提交，需要另外接入经过授权的服务端。
 
 ## 写作
 
