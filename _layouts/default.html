@@ -12,19 +12,55 @@
 <body>
   <a class="skip-link" href="#main-content">跳到正文</a>
   <header class="site-header">
-    <a class="brand" href="{{ site.profile_url }}" aria-label="返回 Shengbo Sun 个人主页">
-      <span class="brand-mark" aria-hidden="true">SB</span>
-      <span class="brand-name">SHENGBO SUN<small>ENGINEERING NOTES</small></span>
-    </a>
-    <nav class="site-nav" aria-label="主导航">
-      <a href="{{ site.profile_url }}">个人主页</a>
-      <a href="{{ '/blog/' | relative_url }}" {% if page.url contains '/blog' or page.layout == 'post' %}aria-current="page"{% endif %}>文章</a>
-    </nav>
+    <div class="header-inner">
+      <a class="brand" href="{{ site.profile_url }}">Shengbo Sun</a>
+      <form class="search-form" action="{{ '/blog/' | relative_url }}" method="get" role="search">
+        <label class="visually-hidden" for="article-search">搜索文章</label>
+        <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M10.68 11.74a6.5 6.5 0 1 1 1.06-1.06l3.29 3.28a.75.75 0 1 1-1.06 1.06l-3.29-3.28ZM11.5 6.5a5 5 0 1 0-10 0 5 5 0 0 0 10 0Z"/></svg>
+        <input id="article-search" type="search" name="q" autocomplete="off" placeholder="搜索文章" aria-label="搜索文章">
+        <kbd>/</kbd>
+      </form>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="{{ site.profile_url }}">个人主页</a>
+      </nav>
+    </div>
   </header>
-  <main id="main-content">{{ content }}</main>
+
+  <main id="main-content" class="page-wrap">
+    <nav class="breadcrumbs" aria-label="面包屑导航">
+      <a href="{{ site.profile_url }}">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ '/blog/' | relative_url }}">工程笔记</a>
+      {% if page.layout == 'post' %}<span aria-hidden="true">/</span><span aria-current="page">{{ page.title | escape }}</span>{% endif %}
+    </nav>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar" aria-label="博客导航">
+        <nav>
+          <a class="sidebar-link {% if page.layout == 'blog' %}is-current{% endif %}" href="{{ '/blog/' | relative_url }}" {% if page.layout == 'blog' %}aria-current="page"{% endif %}>全部文章</a>
+          <div class="sidebar-section">
+            <h2>分类</h2>
+            {% assign sorted_categories = site.categories | sort %}
+            {% if sorted_categories.size > 0 %}
+              {% for category in sorted_categories %}
+              <a class="sidebar-link sidebar-category" href="{{ '/blog/' | relative_url }}?category={{ category[0] | url_encode }}">
+                <span>{{ category[0] | escape }}</span><span class="sidebar-count">{{ category[1].size }}</span>
+              </a>
+              {% endfor %}
+            {% else %}
+              <p class="sidebar-empty">文章分类会显示在这里。</p>
+            {% endif %}
+          </div>
+        </nav>
+      </aside>
+
+      <div class="docs-content">{{ content }}</div>
+    </div>
+  </main>
+
   <footer class="site-footer">
-    <span>SHENGBO SUN</span>
-    <span>工程经验 · 技术难题 · 复盘记录</span>
+    <span>© {{ site.time | date: "%Y" }} Shengbo Sun</span>
+    <a href="{{ site.profile_url }}">个人主页</a>
   </footer>
   {% if page.layout == 'blog' %}<script src="{{ '/assets/js/blog.js' | relative_url }}" defer></script>{% endif %}
 </body>
