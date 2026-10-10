@@ -31,8 +31,7 @@
       <kbd>/</kbd>
     </form>
     <nav class="site-nav" aria-label="主导航">
-      <a href="{{ '/blog/write/' | relative_url }}"{% if page.editor %} aria-current="page"{% endif %}>写文章</a>
-      <a class="home-link" href="{{ site.profile_url }}">个人主页</a>
+      <a href="{{ site.profile_url }}">个人主页</a>
     </nav>
   </header>
 
@@ -53,7 +52,6 @@
       <h2 class="sidebar-title"><a href="{{ '/blog/' | relative_url }}">工程笔记</a></h2>
       <nav class="sidebar-nav">
         <a class="sidebar-link{% if page.layout == 'post' %} is-current{% endif %}" data-nav-all href="{{ '/blog/' | relative_url }}"{% if page.layout == 'post' %} aria-current="page"{% endif %}>全部文章</a>
-        <a class="sidebar-link{% if page.editor %} is-current{% endif %}" href="{{ '/blog/write/' | relative_url }}"{% if page.editor %} aria-current="page"{% endif %}>写文章</a>
         <div class="sidebar-group">
           <h3>分类</h3>
           <a class="sidebar-link sidebar-category" data-category-nav="工程实践" href="{{ '/blog/' | relative_url }}?category={{ '工程实践' | url_encode }}">工程实践</a>
@@ -72,6 +70,5 @@
   </footer>
   <script src="{{ '/assets/js/docs.js' | relative_url }}" defer></script>
   {% if page.layout == 'blog' %}<script src="{{ '/assets/js/blog.js' | relative_url }}" defer></script>{% endif %}
-  {% if page.editor %}<script src="{{ '/assets/js/vendor/markdown-it.min.js' | relative_url }}" defer></script><script src="{{ '/assets/js/editor.js' | relative_url }}" defer></script>{% endif %}
 </body>
 </html>
