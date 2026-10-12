@@ -7,6 +7,19 @@
     toggle.setAttribute("aria-label", collapsed ? "展开目录" : "折叠目录");
   });
 
+  for (const categoryToggle of document.querySelectorAll("[data-category-toggle]")) {
+    const categoryList = document.getElementById(categoryToggle.getAttribute("aria-controls"));
+    if (!categoryList) continue;
+
+    categoryToggle.addEventListener("click", () => {
+      const expanded = categoryToggle.getAttribute("aria-expanded") === "true";
+      const category = categoryToggle.dataset.categoryToggle;
+      categoryToggle.setAttribute("aria-expanded", String(!expanded));
+      categoryToggle.setAttribute("aria-label", `${expanded ? "展开" : "折叠"} ${category} 子主题`);
+      categoryList.hidden = expanded;
+    });
+  }
+
   const headings = [...document.querySelectorAll(".prose h2, .prose h3")];
   const toc = document.querySelector(".article-toc");
   const tocList = document.querySelector("#article-toc-list");

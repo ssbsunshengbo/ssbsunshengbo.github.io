@@ -76,6 +76,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .sidebar-group { display: grid; gap: 0.15rem; margin-top: var(--space-lg, 1rem); padding-top: 0.85rem; border-top: 1px dashed var(--border-muted); }
 .sidebar-group h3 { margin: 0 0 0.25rem; padding: 0.15rem 0.75rem 0.15rem 1.4rem; color: var(--text-default); font-size: 0.875rem; font-weight: 600; }
 .sidebar-category { padding-left: 2rem; }
+.sidebar-category-tree { display: grid; gap: 0.1rem; }
+.sidebar-category-branch { display: grid; grid-template-columns: minmax(0, 1fr) 2rem; align-items: center; gap: 0.15rem; }
+.sidebar-category-parent { min-width: 0; }
+.sidebar-category-toggle { display: grid; width: 2rem; height: 2rem; place-items: center; padding: 0; border: 0; border-radius: 6px; color: var(--text-muted); background: transparent; cursor: pointer; }
+.sidebar-category-toggle:hover { color: var(--text-default); background: var(--surface-muted); }
+.sidebar-category-toggle svg { transition: transform 120ms ease; }
+.sidebar-category-toggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+.sidebar-category-children { display: grid; gap: 0.1rem; margin-left: 1.4rem; padding-left: 0.45rem; border-left: 1px solid var(--border-muted); }
+.sidebar-category-children .sidebar-category { padding-left: 1rem; }
 .docs-content { --content-gutter: clamp(2rem, 9.1vw, 7.5rem); min-width: 0; padding: var(--space-xl, 1.5rem) var(--content-gutter) 4rem; }
 .docs-content > *:not(.article-toc) { width: min(100%, 45rem); }
 .sidebar-collapsed .docs-layout { grid-template-columns: 0 minmax(0, 1fr); }
@@ -185,6 +194,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
   .sidebar-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.2rem; margin: 0 0 0 0.35rem; padding: 0; border: 0; }
   .sidebar-group h3 { margin: 0; padding: 0 0.35rem; font-size: 0.8125rem; }
   .sidebar-category { padding-inline: 0.5rem; }
+  .sidebar-category-tree { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.15rem; }
+  .sidebar-category-branch { display: flex; gap: 0.1rem; }
+  .sidebar-category-toggle { width: 1.9rem; height: 1.9rem; }
+  .sidebar-category-children { display: flex; flex-wrap: wrap; align-items: center; gap: 0.1rem 0.15rem; margin-left: 0; padding-left: 0.2rem; border-left: 0; }
+  .sidebar-category-children .sidebar-category { padding-inline: 0.5rem; }
   .docs-content { --content-gutter: 1rem; padding: 1.25rem var(--content-gutter) 3rem; }
   .article-toc { margin-top: -1.25rem; margin-bottom: 1.25rem; }
   .page-heading h1, .post-header h1 { font-size: 2rem; }

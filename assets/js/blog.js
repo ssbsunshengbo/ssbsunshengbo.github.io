@@ -9,6 +9,25 @@
   const queryCategory = params.get("category") || "";
   const categoryLinks = [...document.querySelectorAll("[data-category-nav]")];
   const allLink = document.querySelector("[data-nav-all]");
+  const categoryChildren = new Map();
+
+  for (const link of categoryLinks) {
+    const parent = link.dataset.categoryParent;
+    if (!parent) continue;
+    if (!categoryChildren.has(parent)) categoryChildren.set(parent, new Set());
+    categoryChildren.get(parent).add(link.dataset.categoryNav);
+  }
+
+  const categoryFamily = new Set(queryCategory ? [queryCategory] : []);
+  const pendingCategories = [...categoryFamily];
+  while (pendingCategories.length > 0) {
+    const parent = pendingCategories.pop();
+    for (const child of categoryChildren.get(parent) || []) {
+      if (categoryFamily.has(child)) continue;
+      categoryFamily.add(child);
+      pendingCategories.push(child);
+    }
+  }
 
   if (!input) return;
 
@@ -33,7 +52,7 @@
     for (const entry of entries) {
       const matchesText = entry.dataset.search.toLocaleLowerCase("zh-CN").includes(query);
       const categories = entry.dataset.category.split("|").filter(Boolean);
-      const matchesCategory = !queryCategory || categories.includes(queryCategory);
+      const matchesCategory = !queryCategory || categories.some((category) => categoryFamily.has(category));
       entry.hidden = !(matchesText && matchesCategory);
       if (!entry.hidden) visible += 1;
     }
