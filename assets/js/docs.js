@@ -7,16 +7,35 @@
     toggle.setAttribute("aria-label", collapsed ? "展开目录" : "折叠目录");
   });
 
-  for (const categoryToggle of document.querySelectorAll("[data-category-toggle]")) {
+  const categoryToggles = [...document.querySelectorAll("[data-category-toggle]")];
+  const categoryExpansionKey = (category) => `blog-category-expanded:${category}`;
+
+  for (const categoryToggle of categoryToggles) {
     const categoryList = document.getElementById(categoryToggle.getAttribute("aria-controls"));
     if (!categoryList) continue;
+    const category = categoryToggle.dataset.categoryToggle;
+    const storageKey = categoryExpansionKey(category);
+    const expanded = sessionStorage.getItem(storageKey) === "true";
+
+    categoryToggle.setAttribute("aria-expanded", String(expanded));
+    categoryToggle.setAttribute("aria-label", `${expanded ? "折叠" : "展开"} ${category} 子主题`);
+    categoryList.hidden = !expanded;
 
     categoryToggle.addEventListener("click", () => {
-      const expanded = categoryToggle.getAttribute("aria-expanded") === "true";
-      const category = categoryToggle.dataset.categoryToggle;
-      categoryToggle.setAttribute("aria-expanded", String(!expanded));
-      categoryToggle.setAttribute("aria-label", `${expanded ? "展开" : "折叠"} ${category} 子主题`);
-      categoryList.hidden = expanded;
+      const nextExpanded = categoryToggle.getAttribute("aria-expanded") !== "true";
+      categoryToggle.setAttribute("aria-expanded", String(nextExpanded));
+      categoryToggle.setAttribute("aria-label", `${nextExpanded ? "折叠" : "展开"} ${category} 子主题`);
+      categoryList.hidden = !nextExpanded;
+      sessionStorage.setItem(storageKey, String(nextExpanded));
+    });
+  }
+
+  for (const categoryLink of document.querySelectorAll("[data-category-nav]")) {
+    categoryLink.addEventListener("click", () => {
+      if (categoryLink.dataset.categoryParent) return;
+      for (const categoryToggle of categoryToggles) {
+        sessionStorage.setItem(categoryExpansionKey(categoryToggle.dataset.categoryToggle), "false");
+      }
     });
   }
 
